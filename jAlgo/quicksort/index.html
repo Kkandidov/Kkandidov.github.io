@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AlgoVision</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/addons/p5.sound.min.js"></script>
+    <meta charset="utf-8" />
+    
+    <style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #FFF
+    }
+
+    canvas {
+        display: block;
+
+    }
+</style>
+</head>
+
+<body>
+<script>
+$().ready(function () {
+
+    $(document).on('change', '#themes', function () {
+        let topicId = $(this).val();
+
+        $.getJSON(window.contextRoot + '/user/topic/' + topicId + '/tests', function (data) {
+            $("#testNames").html('');
+            $.each(data, function () {
+                $("#testNames").append('<option value="' + this.id + '">' + this.name + '</option>');
+            });
+        });
+    });
+
+    $("#testId").on('click', function () {
+        let id = $("#testNames option:selected").val();
+        location.href = window.contextRoot + '/user/chosen/test?testId=' + id;
+        return false;
+    });
+});
+</script>
+</body>
+
+</html>
